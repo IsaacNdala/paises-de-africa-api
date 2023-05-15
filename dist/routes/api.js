@@ -30,6 +30,7 @@ const regiaController = __importStar(require("../controllers/regiao"));
 const coloniaController = __importStar(require("../controllers/colonia"));
 const authController = __importStar(require("../controllers/auth"));
 const paisController = __importStar(require("../controllers/pais"));
+const pratoTipicoController = __importStar(require("../controllers/prato-tipico"));
 const router = (0, express_1.Router)();
 // Pais
 router.post('/pais/create', (req, res, next) => {
@@ -70,4 +71,14 @@ router.post('/auth/create-user', (req, res, next) => {
 }, schema.createUser, authController.createUser);
 router.post('/auth/login', schema.login, authController.login);
 // Fim Auth
+// PratoTipico
+router.post('/prato-tipico/create', (req, res, next) => {
+    file_1.upload.single('imagem')(req, res, function (err) {
+        if (err) {
+            next(err);
+        }
+        next();
+    });
+}, schema.createPratoTipico, pratoTipicoController.createPratoTipico);
+// Fim PratoTipico
 exports.default = router;

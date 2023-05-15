@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.createUser = exports.deleteColonia = exports.editColonia = exports.createColonias = exports.deleteRegiao = exports.editRegiao = exports.createRegiao = exports.createPais = void 0;
+exports.createPratoTipico = exports.login = exports.createUser = exports.deleteColonia = exports.editColonia = exports.createColonias = exports.deleteRegiao = exports.editRegiao = exports.createRegiao = exports.createPais = void 0;
 const express_validator_1 = require("express-validator");
 // Pais
 exports.createPais = (0, express_validator_1.checkSchema)({
@@ -143,3 +143,25 @@ exports.login = (0, express_validator_1.checkSchema)({
     },
 });
 // Fim Auth
+// PratoTipico
+exports.createPratoTipico = (0, express_validator_1.checkSchema)({
+    designacao: {
+        notEmpty: true,
+        trim: true,
+        errorMessage: 'O campo designacao é obrigatório!',
+    },
+    paisId: {
+        notEmpty: true,
+        trim: true,
+        errorMessage: 'O campo paisId é obrigatório!',
+    },
+    userId: {
+        notEmpty: true,
+        trim: true,
+        errorMessage: 'O campo userId é obrigatório!',
+    },
+    imageURl: {
+        trim: true,
+    },
+});
+// Fim PratoTipico

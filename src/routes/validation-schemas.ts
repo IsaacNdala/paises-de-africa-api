@@ -149,3 +149,26 @@ export const login = checkSchema({
   },
 });
 // Fim Auth
+
+// PratoTipico
+export const createPratoTipico = checkSchema({
+  designacao: {
+    notEmpty: true,
+    trim: true,
+    errorMessage: 'O campo designacao é obrigatório!',
+  },
+  paisId: {
+    notEmpty: true,
+    trim: true,
+    errorMessage: 'O campo paisId é obrigatório!',
+  },
+  userId: {
+    notEmpty: true,
+    trim: true,
+    errorMessage: 'O campo userId é obrigatório!',
+  },
+  imageURl: {
+    trim: true,
+  },
+});
+// Fim PratoTipico

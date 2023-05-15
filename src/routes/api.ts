@@ -5,6 +5,7 @@ import * as regiaController from '../controllers/regiao';
 import * as coloniaController from '../controllers/colonia';
 import * as authController from '../controllers/auth';
 import * as paisController from '../controllers/pais';
+import * as pratoTipicoController from '../controllers/prato-tipico';
 
 const router = Router();
 
@@ -20,7 +21,7 @@ router.post(
     });
   },
   schema.createPais,
-  paisController.createPais
+  paisController.createPais,
 );
 
 router.get('/paises', paisController.getPaises);
@@ -43,11 +44,7 @@ router.post(
   regiaController.createRegiao,
 );
 
-router.put(
-  '/regiao/edit',
-  schema.editRegiao,
-  regiaController.editRegiao,
-);
+router.put('/regiao/edit', schema.editRegiao, regiaController.editRegiao);
 
 router.delete(
   '/regiao/delete',
@@ -67,11 +64,7 @@ router.post(
   coloniaController.createColonia,
 );
 
-router.put(
-  '/colonia/edit',
-  schema.editColonia,
-  coloniaController.editColonia,
-);
+router.put('/colonia/edit', schema.editColonia, coloniaController.editColonia);
 
 router.delete(
   '/colonia/delete',
@@ -92,14 +85,26 @@ router.post(
     });
   },
   schema.createUser,
-  authController.createUser
+  authController.createUser,
 );
 
-router.post(
-  '/auth/login',
-  schema.login,
-  authController.login
-);
+router.post('/auth/login', schema.login, authController.login);
 // Fim Auth
+
+// PratoTipico
+router.post(
+  '/prato-tipico/create',
+  (req: Request, res: Response, next: NextFunction) => {
+    upload.single('imagem')(req, res, function (err) {
+      if (err) {
+        next(err);
+      }
+      next();
+    });
+  },
+  schema.createPratoTipico,
+  pratoTipicoController.createPratoTipico,
+);
+// Fim PratoTipico
 
 export default router;

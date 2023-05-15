@@ -16,6 +16,7 @@ const colonia_1 = __importDefault(require("./models/colonia"));
 const pais_1 = __importDefault(require("./models/pais"));
 const regiao_1 = __importDefault(require("./models/regiao"));
 const user_1 = __importDefault(require("./models/user"));
+const prato_tipico_1 = __importDefault(require("./models/prato-tipico"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3030;
 app.use((0, compression_1.default)());
@@ -29,7 +30,8 @@ app.get('/', (req, res, next) => {
 });
 pais_1.default.belongsTo(regiao_1.default, { foreignKey: 'regiaoId' });
 pais_1.default.belongsTo(colonia_1.default, { foreignKey: 'coloniaId' });
-pais_1.default.belongsTo(user_1.default), { foreignKey: 'userId' };
+pais_1.default.belongsTo(user_1.default, { foreignKey: 'userId' });
+prato_tipico_1.default.belongsTo(pais_1.default, { foreignKey: 'paisId' });
 // MiddleWare de Erro
 app.use((error, req, res, next) => {
     if (!error.statusCode)

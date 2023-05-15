@@ -11,6 +11,7 @@ import Colonia from './models/colonia';
 import Pais from './models/pais';
 import Regiao from './models/regiao';
 import User from './models/user';
+import PratoTipico from './models/prato-tipico';
 
 const app = express();
 
@@ -27,9 +28,10 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
   res.send('<h1>Bem vindo a Países de África</h1>')
 });
 
-Pais.belongsTo(Regiao, { foreignKey: 'regiaoId' })
-Pais.belongsTo(Colonia, { foreignKey: 'coloniaId' })
-Pais.belongsTo(User), { foreignKey: 'userId' };
+Pais.belongsTo(Regiao, { foreignKey: 'regiaoId' });
+Pais.belongsTo(Colonia, { foreignKey: 'coloniaId' });
+Pais.belongsTo(User, { foreignKey: 'userId' });
+PratoTipico.belongsTo(Pais, { foreignKey: 'paisId' });
 
 // MiddleWare de Erro
 app.use((error: IError, req: Request, res: Response, next: NextFunction) => {
