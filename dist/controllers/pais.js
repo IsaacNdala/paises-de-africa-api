@@ -40,7 +40,7 @@ const createPais = async (req, res, next) => {
             coloniaId,
             moeda,
             userId,
-            imagemBandeiraURL: 'images/' + file.filename,
+            imagemBandeiraURL: file.filename,
         });
         res.status(201).json({ msg: 'Cadastrado com sucesso', pais });
     }

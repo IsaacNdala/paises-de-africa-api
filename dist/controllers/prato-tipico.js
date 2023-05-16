@@ -18,7 +18,7 @@ const createPratoTipico = async (req, res, next) => {
         }
         const obj = { designacao, paisId, userId };
         if (file) {
-            obj.imagemURL = 'images/' + file.filename;
+            obj.imagemURL = file.filename;
         }
         const pratoTipico = await prato_tipico_1.default.create(obj);
         res.status(201).json({ msg: 'Cadastrado com sucesso', pratoTipico });

@@ -37,7 +37,7 @@ export const createUser: RequestHandler = async (req, res, next) => {
       nome,
       sobreNome,
       email,
-      fotoURL: 'images/' + file.filename,
+      fotoURL: file.filename,
       password: hashPassword,
     });
 

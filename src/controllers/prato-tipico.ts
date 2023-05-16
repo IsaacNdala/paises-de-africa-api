@@ -22,7 +22,7 @@ export const createPratoTipico: RequestHandler = async (req, res, next) => {
     } = { designacao, paisId, userId };
 
     if(file) {
-      obj.imagemURL = 'images/' + file.filename;
+      obj.imagemURL = file.filename;
     }
 
     const pratoTipico = await PratoTipico.create(obj);

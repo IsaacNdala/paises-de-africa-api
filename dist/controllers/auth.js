@@ -35,7 +35,7 @@ const createUser = async (req, res, next) => {
             nome,
             sobreNome,
             email,
-            fotoURL: 'images/' + file.filename,
+            fotoURL: file.filename,
             password: hashPassword,
         });
         const token = jsonwebtoken_1.default.sign({
