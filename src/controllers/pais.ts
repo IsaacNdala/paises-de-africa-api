@@ -4,6 +4,7 @@ import { validationResult } from 'express-validator';
 import Regiao from '../models/regiao';
 import Colonia from '../models/colonia';
 import User from '../models/user';
+import { Op } from 'sequelize';
 
 export const createPais: RequestHandler = async (req, res, next) => {
   try {
@@ -20,6 +21,8 @@ export const createPais: RequestHandler = async (req, res, next) => {
     } = req.body;
     const file = req.file;
     const errors = validationResult(req);
+
+    console.log('Nome', nome);
 
     if (!file) {
       const error: IError = new Error('Carregue a imagem da bandeira!');
@@ -88,6 +91,23 @@ export const getPais: RequestHandler = async (req, res, next) => {
     }
 
     res.status(200).json({ msg: 'Sucesso', pais });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const searchPais: RequestHandler = async (req, res, next) => {
+  try {
+    const { search } = req.params;
+
+    console.log('search', search)
+
+    const paises = await Pais.findAll({
+      where: { nome: { [Op.like]: `%${search}%` } },
+      include: [{ model: Regiao }, { model: Colonia }, { model: User }],
+    });
+
+    res.status(200).json({ msg: 'Sucesso', paises });
   } catch (error) {
     next(error);
   }

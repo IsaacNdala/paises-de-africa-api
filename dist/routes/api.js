@@ -42,8 +42,9 @@ router.post('/pais/create', (req, res, next) => {
     });
 }, schema.createPais, paisController.createPais);
 router.get('/paises', paisController.getPaises);
-router.put('/pais/:id', paisController.getPais);
-router.get('/pais/edit', paisController.editPais);
+router.get('/pais/:id', paisController.getPais);
+router.get('/pais/search/:search', paisController.searchPais);
+router.put('/pais/edit', paisController.editPais);
 router.delete('/pais/delete', paisController.deletePais);
 // Fim Pais
 // Regiao

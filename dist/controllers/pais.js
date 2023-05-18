@@ -3,17 +3,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deletePais = exports.editPais = exports.getPais = exports.getPaises = exports.createPais = void 0;
+exports.deletePais = exports.editPais = exports.searchPais = exports.getPais = exports.getPaises = exports.createPais = void 0;
 const pais_1 = __importDefault(require("../models/pais"));
 const express_validator_1 = require("express-validator");
 const regiao_1 = __importDefault(require("../models/regiao"));
 const colonia_1 = __importDefault(require("../models/colonia"));
 const user_1 = __importDefault(require("../models/user"));
+const sequelize_1 = require("sequelize");
 const createPais = async (req, res, next) => {
     try {
         const { nome, capital, linguaOficial, presidente, dataIndependencia, regiaoId, moeda, coloniaId, userId, } = req.body;
         const file = req.file;
         const errors = (0, express_validator_1.validationResult)(req);
+        console.log('Nome', nome);
         if (!file) {
             const error = new Error('Carregue a imagem da bandeira!');
             error.statusCode = 422;
@@ -80,6 +82,21 @@ const getPais = async (req, res, next) => {
     }
 };
 exports.getPais = getPais;
+const searchPais = async (req, res, next) => {
+    try {
+        const { search } = req.params;
+        console.log('search', search);
+        const paises = await pais_1.default.findAll({
+            where: { nome: { [sequelize_1.Op.like]: `%${search}%` } },
+            include: [{ model: regiao_1.default }, { model: colonia_1.default }, { model: user_1.default }],
+        });
+        res.status(200).json({ msg: 'Sucesso', paises });
+    }
+    catch (error) {
+        next(error);
+    }
+};
+exports.searchPais = searchPais;
 const editPais = async (req, res, next) => {
     try {
         const { paisId, nome, capital, linguaOficial, presidente, dataIndependencia, regiaoId, moeda, coloniaId, userId, } = req.body;
